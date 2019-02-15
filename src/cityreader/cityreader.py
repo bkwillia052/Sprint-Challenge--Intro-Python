@@ -3,8 +3,8 @@
 class City:
     def __init__(self, name, lat, lon):
         self.name = name
-        self.lat = lat
-        self.lon = lon
+        self.lat = float(lat)
+        self.lon = float(lon)
     def __str__(self):
       return f"Name: {self.name}, Latitude: {self.lat}, Longitude: {self.lon}"
 
@@ -71,13 +71,33 @@ for c in cities:
 # Salt Lake City: (40.7774,-111.9301)
 
 # TODO Get latitude and longitude values from the user
+l1 = input('Enter lat1,lon1:\n').split(',')
+l2 = input('Enter lat2,lon2:\n').split(',')
 
+
+  
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # within will hold the cities that fall within the specified region
-  within = []
-
+  
   # TODO Ensure that the lat and lon valuse are all floats
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
+  lat_min = min(float(lat1), float(lat2))
+  lat_max = max(float(lat1), float(lat2))
+  lon_min = min(float(lon1), float(lon2))
+  lon_max = max(float(lon1), float(lon2))
+  
+  within = [City(city.name, city.lat, city.lon) for city in cities if lat_min <= float(city.lat) <= lat_max and lon_min <= float(city.lon) <= lon_max ]
 
+  print(within)
+  for city in within:
+    print(f'{city.name}: ({city.lat}, {city.lon})')
+
+  
   return within
+
+cityreader_stretch(int(l1[0]), int(l1[1]), int(l2[0]), int(l2[1]), cities)
+
+
+
+
